@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Share New Music - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 600px; margin: 0 auto; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px);">
+    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Upload Music
+    </h2>
+
+    <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-light); font-weight: 600;">Title</label>
+            {{ form.title }}
+        </div>
+
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-light); font-weight: 600;">Description</label>
+            {{ form.content }}
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-light); font-weight: 600;">Album Art (Required)</label>
+                <div class="form-control-custom" style="display: flex; align-items: center; padding: 0.5rem 1rem; border-style: dashed;">
+                    {{ form.image }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-light); font-weight: 600;">Music File (Required)</label>
+                <div class="form-control-custom" style="display: flex; align-items: center; padding: 0.5rem 1rem; border-style: dashed;">
+                    {{ form.music_file }}
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+            <button type="submit" class="btn-view" style="width: 100%; padding: 1rem; font-size: 1.1rem; border: none;">
+                Publish Now
+            </button>
+            <a href="{% url 'musicapp:index' %}" style="text-align: center; color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">
+                Cancel and return to top
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .form-group input[type="text"], 
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        color: var(--text-light);
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    .form-group input[type="text"]:focus, 
+    .form-group textarea:focus {
+        border-color: var(--primary-color);
+    }
+    .form-group textarea {
+        height: 120px;
+        resize: vertical;
+    }
+    input[type="file"] {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

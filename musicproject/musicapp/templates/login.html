@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Log In - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 450px; margin: 4rem auto; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); text-align: center;">
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Sign In
+    </h2>
+
+    {% if form.errors %}
+        <p style="color: #e74c3c; background: rgba(231, 76, 60, 0.1); padding: 0.8rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+            ユーザー名またはパスワードが正しくありません。
+        </p>
+    {% endif %}
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <input type="text" name="username" placeholder="User name" required class="form-control-custom">
+        </div>
+
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Password" required class="form-control-custom">
+        </div>
+
+        <button type="submit" class="btn-view w-100" style="padding: 1rem; font-size: 1.1rem; border: none; margin-top: 1rem;">
+            Login
+        </button>
+
+        <input type="hidden" name="next" value="{% url 'musicapp:index' %}">
+    </form>
+
+    <div style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Don't have an account? <a href="{% url 'accounts:signup' %}" style="color: var(--secondary-color); text-decoration: none;">Create one here</a>
+        </p>
+        <p style="margin-top: 0.5rem;">
+            <a href="{% url 'password_reset' %}" style="color: var(--text-muted); font-size: 0.8rem; text-decoration: none; opacity: 0.7;">Forgot password?</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

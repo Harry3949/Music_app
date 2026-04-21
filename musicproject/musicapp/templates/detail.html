@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ object.title }} - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <div class="music-card" style="padding: 2rem;">
+        <h2 style="font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            {{ object.title }}
+        </h2>
+        
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            Posted on {{ object.posted_at|date:"Y/m/d H:i" }} by 
+            <a href="{% url 'musicapp:user_list' user=object.user.id %}" style="color: var(--secondary-color); text-decoration: none; font-weight: 600;">
+                {{ object.user.username }}
+            </a>
+        </p>
+
+        <div style="margin-bottom: 2rem;">
+            {% if object.image %}
+                <img src="{{ object.image.url }}" alt="{{ object.title }}" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            {% endif %}
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; line-height: 1.6;">
+            {{ object.content|linebreaks }}
+        </div>
+
+        {% if object.music_file %}
+        <div class="audio-player-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; font-size: 1.1rem;">Listen Now</h4>
+                <div class="like-section" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <button class="like-btn" data-id="{{ object.pk }}" style="background: none; border: none; cursor: pointer; color: {% if user in object.likes.all %}#e74c3c{% else %}var(--text-muted){% endif %}; transition: transform 0.2s; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                        </svg>
+                        <span class="like-count" data-id="{{ object.pk }}" style="font-size: 1rem; color: var(--text-light);">{{ object.total_likes }} likes</span>
+                    </button>
+                </div>
+            </div>
+            <audio controls controlslist="nodownload">
+                <source src="{{ object.music_file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+            <a href="{% url 'musicapp:index' %}" class="btn-view" style="background: transparent; border: 1px solid var(--glass-border);">Back to List</a>
+            
+            {% if request.user == object.user %}
+                <a href="{% url 'musicapp:photo_edit' object.id %}" class="btn-view" style="background: var(--primary-color);">Edit</a>
+                <a href="{% url 'musicapp:photo_delete' object.pk %}" class="btn-view" style="background: #e74c3c;">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

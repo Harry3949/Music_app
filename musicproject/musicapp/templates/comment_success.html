@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投稿完了{% endblock %}
+{% block contents %}
+<style>
+    body {
+        background-image: url("{% static 'image/アリ.jpeg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col offset-2">
+            <h4>投稿が完了しました！</h4>
+            <p><a href="{% url 'musicapp:index' %}">トップページへ</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

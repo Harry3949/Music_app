@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ user.username }}'s Mypage - Music App{% endblock %}
+
+{% block contents %}
+<div style="text-align: center; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); margin-bottom: 3rem;">
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Welcome, {{ user.username }}
+    </h2>
+    
+    {% if page_obj.paginator.count == 0 %}
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">投稿はまだありません。</p>
+    {% else %}
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">
+            これまでに <strong style="color: var(--text-light);">{{ page_obj.paginator.count }}</strong> 件の音楽を共有しました。
+        </p>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'musicapp:post' %}" class="btn-view" style="padding: 1rem 2rem; font-size: 1rem;">新しく投稿する</a>
+        <a href="{% url 'musicapp:index' %}" class="btn-view" style="padding: 1rem 2rem; font-size: 1rem; background: transparent; border: 1px solid var(--glass-border); margin-left: 1rem;">トップに戻る</a>
+    </div>
+</div>
+
+<h3 style="margin-bottom: 2rem; border-left: 4px solid var(--primary-color); padding-left: 1rem;">Your Posts</h3>
+
+{% include "music_list.html" %}
+{% include "pagination.html" %}
+{% endblock %}

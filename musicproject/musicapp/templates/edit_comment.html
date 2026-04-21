@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Comment - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 600px; margin: 4rem auto; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px);">
+    <h2 style="text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 2rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Edit Your Comment
+    </h2>
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 0.8rem; color: var(--text-light); font-weight: 600;">Message</label>
+            <div class="input-wrapper">
+                {{ form.comments }}
+            </div>
+            {% for error in form.comments.errors %}
+                <p style="color: #e74c3c; font-size: 0.8rem; margin-top: 0.4rem;">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn-view" style="flex: 2; padding: 1rem; font-size: 1.1rem; border: none;">
+                Save Changes
+            </button>
+            <a href="{% url 'musicapp:index' %}" class="btn-view" style="flex: 1; padding: 1rem; background: transparent; border: 1px solid var(--glass-border); text-decoration: none; text-align: center;">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .input-wrapper textarea {
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        color: var(--text-light);
+        outline: none;
+        transition: all 0.3s ease;
+        height: 150px;
+        resize: vertical;
+    }
+    .input-wrapper textarea:focus {
+        border-color: var(--primary-color);
+        background: rgba(255,255,255,0.08);
+    }
+</style>
+{% endblock %}

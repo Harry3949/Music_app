@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock  %}</title>
+    <link rel="stylesheet" href="{% static 'css/A.Home.css' %}">
+</head>
+<body background="{% static 'images/5505.jpeg' %}">
+    <header class="header">
+        <!-- ヘッダーロゴ -->
+        <div class="logo">自己紹介ホームページ</div>
+        <!-- ハンバーガーメニュー部分 -->
+        <div class="nav">
+            <!-- ハンバーガーメニューの表示・非表示を切り替えるチェックボックス -->
+            <input id="drawer_input" class="drawer_hidden" type="checkbox">
+            <!-- ハンバーガーアイコン -->
+            <label for="drawer_input" class="drawer_open"><span></span></label>
+            <!-- メニュー -->
+            <nav class="nav_content">
+                <div class="container px-4 px-lg-5">
+                    <a href="navbar-brand" href={%url 'music:index' %}></a>
+                    <ul class="nav_list">
+                        <li class="nav_item"><a href="{% url 'musicapp:index' %}">HOME</a></li>
+                        <li class="nav_item"><a href="Hobby.html"></a></li>
+                        <li class="nav_item"><a href="Dog.html">ワンちゃん</a></li>
+                        <li class="nav_item"><a href="Natsu.html">なつのおもひで</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="main">
+            <div id="breadcrumb">
+                <article>
+                    <div>
+                        <h1>音楽投稿サイト</h1>
+                        <h4>このサイトは、あなたのオリジナルサウンドを共有できるサイトです。
+                            あなたの自慢のサウンドを投稿してみませんか？</h4>
+                        <div class="">
+                            <ul class="list-unstyled">
+                                <li class="nav_item"><a href="music_list.html">サインアップ</a></li>
+                                <li class="nav_item"><a href="base.html">ログイン</a></li>
+                                <li class="nav_item"><a href="music_list.html">Email</a></li>
+                            </ul>
+                        </div>
+                        <!-- 音楽投稿のセクション -->
+                            <section class="music-section">
+                                <h2>最新の音楽投稿</h2>
+                                <div class="music-player">
+                                    <h3>投稿された音楽</h3>
+                                    <a href="#"><img src="{% static 'images/アリ.jpeg' %}"width="200" height="200" alt=""></a>
+                                </div>
+                            </section>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

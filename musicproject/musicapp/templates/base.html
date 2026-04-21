@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Music App{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'musicapp:index' %}" style="text-decoration: none; color: inherit;">Music App</a>
+        </div>
+        
+        <div class="search-bar" style="flex-grow: 1; max-width: 400px; margin: 0 2rem;">
+            <form action="{% url 'musicapp:index' %}" method="GET" style="display: flex; gap: 0.5rem;">
+                <input type="text" name="search" placeholder="Search music..." 
+                       style="width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 0.5rem 1rem; color: white; outline: none;">
+                <button type="submit" style="background: none; border: none; cursor: pointer; color: var(--text-muted);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+        
+        <nav class="nav_content">
+            <ul class="list-unstyled">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'musicapp:mypage' %}">マイページ</a></li>
+                    <li><a href="{% url 'musicapp:contact' %}">お問い合わせ</a></li>
+                    <li><a href="{% url 'accounts:logout' %}">ログアウト</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:signup' %}">サインアップ</a></li>
+                    <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block contents %}{% endblock %}
+    </main>
+
+    <footer>
+        <div id="footer_nav">
+            <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'musicapp:mypage' %}" style="color: var(--text-muted); text-decoration: none;">マイページ</a></li>
+                    <li><a href="{% url 'musicapp:contact' %}" style="color: var(--text-muted); text-decoration: none;">お問い合わせ</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <small>&copy; 2024 Music App Portfolio Project.</small>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const postId = this.getAttribute('data-id');
+                const url = `/like-music/${postId}/`;
+                
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const countSpan = document.querySelector(`.like-count[data-id="${postId}"]`);
+                    // ボタンの色を切り替え
+                    if (data.liked) {
+                        this.style.color = '#e74c3c';
+                        this.style.transform = 'scale(1.2)';
+                        setTimeout(() => this.style.transform = 'scale(1)', 200);
+                    } else {
+                        this.style.color = 'var(--text-muted)';
+                    }
+                    
+                    // カウントを更新
+                    if (countSpan) {
+                        if (countSpan.innerText.includes('likes')) {
+                            countSpan.innerText = `${data.total_likes} likes`;
+                        } else {
+                            countSpan.innerText = data.total_likes;
+                        }
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    </script>
+</body>
+</html>

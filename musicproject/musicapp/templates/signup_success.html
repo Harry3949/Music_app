@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Registration Complete{% endblock %}
+    {% block contents %}
+    <style>
+        body {
+            background-image: url("{% static 'image/5505.jpeg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col offset-4 py-4">
+                <h3>登録が完了しました</h3>
+                <p><a href="{% url 'accounts:login' %}">ログインはこちら</a></p>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

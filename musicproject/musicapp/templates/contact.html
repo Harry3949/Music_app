@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Us - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 700px; margin: 0 auto; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px);">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(to right, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Get in Touch
+        </h2>
+        <p style="color: var(--text-muted); line-height: 1.6;">
+            ご質問やフィードバックがありましたら、お気軽にお問い合わせください。<br>
+            通常24時間以内に返信させていただきます。
+        </p>
+    </div>
+
+    {% if messages %}
+    <div style="margin-bottom: 2rem;">
+        {% for message in messages %}
+        <div style="padding: 1rem; border-radius: 10px; background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); color: #2ecc71; text-align: center; font-weight: 600;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-light); font-weight: 600; font-size: 0.9rem;">
+                {{ field.label }}
+            </label>
+            <div class="input-wrapper">
+                {{ field }}
+            </div>
+            {% for error in field.errors %}
+                <p style="color: #e74c3c; font-size: 0.8rem; margin-top: 0.4rem;">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-view" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; border: none; margin-top: 1rem;">
+            Send Message
+        </button>
+    </form>
+
+    <div style="margin-top: 2rem; text-align: center;">
+        <a href="{% url 'musicapp:index' %}" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; opacity: 0.7;">
+            ← トップページに戻る
+        </a>
+    </div>
+</div>
+
+<style>
+    .input-wrapper input,
+    .input-wrapper textarea,
+    .input-wrapper select {
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        color: var(--text-light);
+        outline: none;
+        transition: all 0.3s ease;
+    }
+    .input-wrapper input:focus,
+    .input-wrapper textarea:focus {
+        border-color: var(--primary-color);
+        background: rgba(255,255,255,0.08);
+    }
+    .input-wrapper textarea {
+        height: 150px;
+        resize: vertical;
+    }
+</style>
+{% endblock %}
