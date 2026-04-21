@@ -35,9 +35,13 @@
 
 ## 2. セットアップ手順
 
-### ① 仮想環境の構築
-プロジェクトのルートディレクトリ（Music_app）で以下のコマンドを実行します。
+### ① リポジトリのクローン
+```bash
+git clone <リポジトリのURL>
+cd Music_app
+```
 
+### ② 仮想環境の構築
 **Windowsの場合:**
 ```powershell
 python -m venv venv
@@ -50,28 +54,37 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### ② 依存ライブラリのインストール
-```bash
-pip install -r musicproject/requirements.txt
-```
-
-### ③ 環境変数の設定
-`musicproject/` ディレクトリ内に `.env` ファイルがあることを確認してください。
-ない場合は作成し、以下の内容を記述します。
-```env
-SECRET_KEY=django-insecure-xxxxx  # 任意の文字列
-DEBUG=True
-ALLOWED_HOSTS=127.0.0.1,localhost
-```
-
-### ④ データベースの準備
+### ③ `musicproject` フォルダに移動
 ```bash
 cd musicproject
+```
+> ⚠️ 以降のコマンドはすべて `musicproject/` フォルダ内で実行してください。
+
+### ④ 依存ライブラリのインストール
+```bash
+pip install -r requirements.txt
+```
+
+### ⑤ 環境変数の設定
+`musicproject/` フォルダ内に `.env` という名前のファイルを新規作成し、以下の内容を記述してください。
+```env
+SECRET_KEY=任意の長い文字列（例: django-insecure-xxxxxxxxxx）
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
+EMAIL_HOST_USER=あなたのGmailアドレス
+EMAIL_HOST_PASSWORD=Googleアプリパスワード
+```
+> ⚠️ `EMAIL_HOST_USER` と `EMAIL_HOST_PASSWORD` はパスワードリセット機能に使用します。  
+> 動作確認のみ行う場合は、任意のダミー文字列を入力しても起動自体は可能です。
+
+### ⑥ データベースの準備
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### ⑤ 管理者ユーザーの作成（任意）
+### ⑦ 管理者ユーザーの作成（任意）
+管理画面（/admin）にアクセスする場合に必要です。
 ```bash
 python manage.py createsuperuser
 ```
