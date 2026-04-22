@@ -108,7 +108,7 @@ python manage.py runserver
 ## 4. 動作確認ポイント
 - **トップページ**: 音楽投稿のカードが並び、検索バーで曲の絞り込みができるか。
 - **ログイン/サインアップ**: ユーザー登録とログインが正常に行えるか。
-- **投稿機能**: 音楽ファイルと画像を1つずつ選択して投稿できるか。
+- **投稿機能**: 音楽ファイルと画像を1つずつ選択して投稿できるか（`musicproject/media/` 内のサンプルファイルをご利用いただけます）。
 - **いいね機能**: ハートマークを押した際に、リロードなしでカウントが増減するか。
 - **マイページ**: 自分が投稿した曲だけが表示されているか。
 
@@ -117,16 +117,24 @@ python manage.py runserver
 ## 5. フォルダ構成（参考）
 
 ```
-Music_app/            
-├── musicproject/      
+Music_app/              ← ここで仮想環境を作成・起動する
+├── musicproject/       ← ここで pip install、manage.py を実行する
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── .env         
+│   ├── .env            ← 自分で作成する（GitHubには含まれません）
 │   ├── accounts/
 │   ├── musicapp/
 │   ├── musicproject/
 │   └── static/
 ├── .gitignore
 ├── README.md
-└── startup_guide.md 
+└── startup_guide.md    ← このファイル
 ```
+
+
+> [!TIP]
+> **テスト用サンプルファイルについて**
+> `musicproject/media/` フォルダ内に、動作確認用のサンプル音声ファイルと画像ファイルを用意しています。新規投稿のテスト時にぜひご活用ください。
+
+---
+&copy; 2024 Music App Portfolio project.
