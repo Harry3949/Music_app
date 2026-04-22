@@ -61,11 +61,11 @@ source venv/bin/activate
 ```
 
 ### ③ 依存ライブラリのインストール
+ここからはプログラム本体がある `musicproject` フォルダへ移動して作業します。
 ```bash
 cd musicproject
 pip install -r requirements.txt
 ```
-> ※ここで `musicproject/` フォルダに移動します。以降の操作はすべてこのフォルダ内で行います。
 
 ### ④ 環境変数の設定
 `musicproject/` フォルダ内（`manage.py` と同じ場所）に `.env` ファイルを新規作成し、以下の内容を記述してください。
@@ -117,18 +117,16 @@ python manage.py runserver
 ## 5. フォルダ構成（参考）
 
 ```
-Music_app/
-├── musicproject/
+Music_app/            
+├── musicproject/      
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── .env   
+│   ├── .env         
 │   ├── accounts/
 │   ├── musicapp/
 │   ├── musicproject/
 │   └── static/
 ├── .gitignore
 ├── README.md
-└── startup_guide.md
+└── startup_guide.md 
 ```
-
-&copy; 2024 Music App Portfolio project.
