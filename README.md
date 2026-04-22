@@ -12,7 +12,7 @@
 
 ## 🛠 技術スタック (Tech Stack)
 
-- **バックエンド**: Python 3.x / Django 3.2
+- **バックエンド**: Python 3.12+ / Django 6.0+
 - **フロントエンド**: HTML5 / CSS3（バニラCSSによるカスタムデザイン） / JavaScript
 - **データベース**: SQLite3（開発環境）
 - **環境管理**: python-dotenv
@@ -28,20 +28,26 @@
 
 このドキュメントは、本アプリケーションをローカル環境で起動し、正常に動作させるための手順をまとめたものです。
 
+---
+
 ## 1. 動作環境
 - **OS**: Windows / macOS / Linux
-- **Python**: 3.8 以上
-- **Framework**: Django 3.2 以上
+- **Python**: 3.12 以上
+- **Framework**: Django 6.0 以上
+
+---
 
 ## 2. セットアップ手順
 
-### ① リポジトリのクローン
+### ① リポジトリをクローンする
 ```bash
-git clone <リポジトリのURL>
+git clone https://github.com/（あなたのGitHubユーザー名）/Music_app.git
 cd Music_app
 ```
 
 ### ② 仮想環境の構築
+クローンしたフォルダ（`Music_app/`）で以下を実行します。
+
 **Windowsの場合:**
 ```powershell
 python -m venv venv
@@ -54,46 +60,50 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### ③ `musicproject` フォルダに移動
+### ③ 依存ライブラリのインストール
 ```bash
 cd musicproject
-```
-> ⚠️ 以降のコマンドはすべて `musicproject/` フォルダ内で実行してください。
-
-### ④ 依存ライブラリのインストール
-```bash
 pip install -r requirements.txt
 ```
+> ※ここで `musicproject/` フォルダに移動します。以降の操作はすべてこのフォルダ内で行います。
 
-### ⑤ 環境変数の設定
-`musicproject/` フォルダ内に `.env` という名前のファイルを新規作成し、以下の内容を記述してください。
+### ④ 環境変数の設定
+`musicproject/` フォルダ内（`manage.py` と同じ場所）に `.env` ファイルを新規作成し、以下の内容を記述してください。
+
 ```env
-SECRET_KEY=任意の長い文字列（例: django-insecure-xxxxxxxxxx）
+SECRET_KEY=django-insecure-任意の長い文字列
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
+
+# メール送信設定（お問い合わせ機能用）
 EMAIL_HOST_USER=あなたのGmailアドレス
-EMAIL_HOST_PASSWORD=Googleアプリパスワード
+EMAIL_HOST_PASSWORD=Googleで発行した16桁のアプリパスワード
 ```
-> ⚠️ `EMAIL_HOST_USER` と `EMAIL_HOST_PASSWORD` はパスワードリセット機能に使用します。  
-> 動作確認のみ行う場合は、任意のダミー文字列を入力しても起動自体は可能です。
+> ※メール送信を機能させるには、Googleアカウントの2段階認証を有効にし「アプリパスワード」を発行する必要があります。
 
-### ⑥ データベースの準備
+### ⑤ データベースの準備
 ```bash
-python manage.py migrate
 python manage.py makemigrations
+python manage.py migrate
 ```
 
-### ⑦ 管理者ユーザーの作成（任意）
-管理画面（/admin）にアクセスする場合に必要です。
+### ⑥ 管理者ユーザーの作成（任意）
+管理画面（`/admin`）を使いたい場合に実行してください。
 ```bash
 python manage.py createsuperuser
 ```
 
+---
+
 ## 3. アプリケーションの起動
+
 ```bash
 python manage.py runserver
 ```
+
 起動後、ブラウザで [http://127.0.0.1:8000/](http://127.0.0.1:8000/) にアクセスしてください。
+
+---
 
 ## 4. 動作確認ポイント
 - **トップページ**: 音楽投稿のカードが並び、検索バーで曲の絞り込みができるか。
@@ -101,3 +111,24 @@ python manage.py runserver
 - **投稿機能**: 音楽ファイルと画像を1つずつ選択して投稿できるか。
 - **いいね機能**: ハートマークを押した際に、リロードなしでカウントが増減するか。
 - **マイページ**: 自分が投稿した曲だけが表示されているか。
+
+---
+
+## 5. フォルダ構成（参考）
+
+```
+Music_app/              ← ここで仮想環境を作成・起動する
+├── musicproject/       ← ここで pip install、manage.py を実行する
+│   ├── manage.py
+│   ├── requirements.txt
+│   ├── .env            ← 自分で作成する（GitHubには含まれません）
+│   ├── accounts/
+│   ├── musicapp/
+│   ├── musicproject/
+│   └── static/
+├── .gitignore
+├── README.md
+└── startup_guide.md    ← このファイル
+```
+
+&copy; 2024 Music App Portfolio project.
