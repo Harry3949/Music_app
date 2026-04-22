@@ -7,6 +7,7 @@ urlpatterns = [
     path('',views.index_view,name='index'),
     path('post/',views.CreateMusicView.as_view(), name=('post')),
     path('post_done/',views.PostSuccessView.as_view(),name='post_done'),
+    path('comment_done/',views.CommentSuccessView.as_view(),name='comment_done'),
     path('photos/<int:category>',views.CategoryView.as_view(),name = 'photos_cat'),
     path('mypage/',views.MypageView.as_view(),name='mypage'),
     path('photo-detail/<int:pk>',views.DetailView.as_view(),name = 'photo_detail'),

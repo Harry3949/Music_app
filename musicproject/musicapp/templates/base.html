@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Main Style -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'image/アリ.jpeg' %}" type="image/jpeg">
 </head>
 
 <body>
@@ -35,7 +37,12 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'musicapp:mypage' %}">マイページ</a></li>
                     <li><a href="{% url 'musicapp:contact' %}">お問い合わせ</a></li>
-                    <li><a href="{% url 'accounts:logout' %}">ログアウト</a></li>
+                    <li>
+                        <form action="{% url 'accounts:logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background: none; border: none; color: inherit; padding: 0; cursor: pointer; font: inherit; text-decoration: none;">ログアウト</button>
+                        </form>
+                    </li>
                 {% else %}
                     <li><a href="{% url 'accounts:signup' %}">サインアップ</a></li>
                     <li><a href="{% url 'accounts:login' %}">ログイン</a></li>

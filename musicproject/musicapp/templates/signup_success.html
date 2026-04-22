@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Registration Complete{% endblock %}
-    {% block contents %}
-    <style>
-        body {
-            background-image: url("{% static 'image/5505.jpeg' %}");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-    </style>
-    <div class="container">
-        <div class="row">
-            <div class="col offset-4 py-4">
-                <h3>登録が完了しました</h3>
-                <p><a href="{% url 'accounts:login' %}">ログインはこちら</a></p>
-            </div>
-        </div>
+{% block title %}Registration Complete - Music App{% endblock %}
+
+{% block contents %}
+<div style="max-width: 500px; margin: 6rem auto; padding: 3rem 2rem; background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); text-align: center;">
+    <div style="width: 80px; height: 80px; background: rgba(108, 92, 231, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; border: 2px solid rgba(108, 92, 231, 0.3);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#a29bfe" viewBox="0 0 16 16">
+            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.42-5.447a.31.31 0 0 1 .012-.022z"/>
+        </svg>
     </div>
-    {% endblock %}
+
+    <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--text-light); margin-bottom: 1rem;">
+        登録が完了しました
+    </h2>
+    <p style="color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.6;">
+        アカウントの作成ありがとうございます！<br>
+        さっそくログインして、音楽の共有を始めましょう。
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <a href="{% url 'accounts:login' %}" class="btn-view" style="width: 100%; border: none;">
+            Log In Now
+        </a>
+        <a href="{% url 'musicapp:index' %}" class="btn-view" style="background: transparent; border: 1px solid var(--glass-border); text-decoration: none;">
+            Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

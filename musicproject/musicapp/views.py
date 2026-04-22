@@ -62,8 +62,8 @@ class ContactView(FormView):
         message = \
             '送信者名: {0}\nメールアドレス: {1}\n タイトル:{2}\n メッセージ:\n{3}' \
             .format(name, email, title, message)
-        from_email = 'admin@example.com'
-        to_list = ['admin@example.com']
+        from_email = 'harutoarinaga5353@gmail.com'
+        to_list = ['harutoarinaga5353@gmail.com']
         message = EmailMessage(subject=subject,
                                body=message,
                                from_email=from_email,
@@ -89,6 +89,9 @@ class CreateMusicView(CreateView):
 
 class PostSuccessView(TemplateView):
     template_name = 'post_success.html'
+
+class CommentSuccessView(TemplateView):
+    template_name = 'comment_success.html'
     
 class CategoryView(ListView):
     #index.htmlをレンダリング
@@ -149,7 +152,7 @@ class CreateCommentView(CreateView):
    
     template_name = 'comment_post.html'
    
-    success_url = reverse_lazy('musicapp:post_done')
+    success_url = reverse_lazy('musicapp:comment_done')
    
     def form_valid(self, form):
        
