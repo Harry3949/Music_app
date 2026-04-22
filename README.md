@@ -117,18 +117,18 @@ python manage.py runserver
 ## 5. フォルダ構成（参考）
 
 ```
-Music_app/              ← ここで仮想環境を作成・起動する
-├── musicproject/       ← ここで pip install、manage.py を実行する
+Music_app/              
+├── musicproject/       
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── .env            ← 自分で作成する（GitHubには含まれません）
+│   ├── .env           
 │   ├── accounts/
 │   ├── musicapp/
 │   ├── musicproject/
 │   └── static/
 ├── .gitignore
 ├── README.md
-└── startup_guide.md    ← このファイル
+└── startup_guide.md  
 ```
 
 
