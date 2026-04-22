@@ -79,8 +79,8 @@ EMAIL_HOST_PASSWORD=Googleアプリパスワード
 
 ### ⑥ データベースの準備
 ```bash
-python manage.py makemigrations
 python manage.py migrate
+python manage.py makemigrations
 ```
 
 ### ⑦ 管理者ユーザーの作成（任意）
