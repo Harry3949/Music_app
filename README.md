@@ -83,8 +83,8 @@ EMAIL_HOST_PASSWORD=Googleで発行した16桁のアプリパスワード
 
 ### ⑤ データベースの準備
 ```bash
-python manage.py makemigrations
 python manage.py migrate
+python manage.py makemigrations
 ```
 
 ### ⑥ 管理者ユーザーの作成（任意）
