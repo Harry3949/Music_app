@@ -12,7 +12,7 @@
 
 ## 🛠 技術スタック (Tech Stack)
 
-- **バックエンド**: Python 3.x / Django 3.2
+- **バックエンド**: Python 3.12+ / Django 6.0+
 - **フロントエンド**: HTML5 / CSS3（バニラCSSによるカスタムデザイン） / JavaScript
 - **データベース**: SQLite3（開発環境）
 - **環境管理**: python-dotenv
@@ -28,20 +28,26 @@
 
 このドキュメントは、本アプリケーションをローカル環境で起動し、正常に動作させるための手順をまとめたものです。
 
+---
+
 ## 1. 動作環境
 - **OS**: Windows / macOS / Linux
-- **Python**: 3.8 以上
-- **Framework**: Django 3.2 以上
+- **Python**: 3.12 以上
+- **Framework**: Django 6.0 以上
+
+---
 
 ## 2. セットアップ手順
 
-### ① リポジトリのクローン
+### ① リポジトリをクローンする
 ```bash
-git clone <リポジトリのURL>
+git clone https://github.com/（あなたのGitHubユーザー名）/Music_app.git
 cd Music_app
 ```
 
 ### ② 仮想環境の構築
+クローンしたフォルダ（`Music_app/`）で以下を実行します。
+
 **Windowsの場合:**
 ```powershell
 python -m venv venv
@@ -54,50 +60,83 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### ③ `musicproject` フォルダに移動
+### ③ 依存ライブラリのインストール
+ここからはプログラム本体がある `musicproject` フォルダへ移動して作業します。
 ```bash
 cd musicproject
-```
-> ⚠️ 以降のコマンドはすべて `musicproject/` フォルダ内で実行してください。
-
-### ④ 依存ライブラリのインストール
-```bash
 pip install -r requirements.txt
 ```
 
-### ⑤ 環境変数の設定
-`musicproject/` フォルダ内に `.env` という名前のファイルを新規作成し、以下の内容を記述してください。
+### ④ 環境変数の設定
+`musicproject/` フォルダ内（`manage.py` と同じ場所）に `.env` ファイルを新規作成し、以下の内容を記述してください。
+
 ```env
-SECRET_KEY=任意の長い文字列（例: django-insecure-xxxxxxxxxx）
+SECRET_KEY=django-insecure-任意の長い文字列
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
-EMAIL_HOST_USER=あなたのGmailアドレス
-EMAIL_HOST_PASSWORD=Googleアプリパスワード
-```
-> ⚠️ `EMAIL_HOST_USER` と `EMAIL_HOST_PASSWORD` はパスワードリセット機能に使用します。  
-> 動作確認のみ行う場合は、任意のダミー文字列を入力しても起動自体は可能です。
 
-### ⑥ データベースの準備
+# メール送信設定（お問い合わせ機能用）
+EMAIL_HOST_USER=あなたのGmailアドレス
+EMAIL_HOST_PASSWORD=Googleで発行した16桁のアプリパスワード
+```
+> ※メール送信を機能させるには、Googleアカウントの2段階認証を有効にし「アプリパスワード」を発行する必要があります。
+
+### ⑤ データベースの準備
 ```bash
 python manage.py migrate
 python manage.py makemigrations
 ```
 
-### ⑦ 管理者ユーザーの作成（任意）
-管理画面（/admin）にアクセスする場合に必要です。
+### ⑥ 管理者ユーザーの作成（任意）
+管理画面（`/admin`）を使いたい場合に実行してください。
 ```bash
 python manage.py createsuperuser
 ```
 
+---
+
 ## 3. アプリケーションの起動
+
 ```bash
 python manage.py runserver
 ```
+
 起動後、ブラウザで [http://127.0.0.1:8000/](http://127.0.0.1:8000/) にアクセスしてください。
+
+---
 
 ## 4. 動作確認ポイント
 - **トップページ**: 音楽投稿のカードが並び、検索バーで曲の絞り込みができるか。
 - **ログイン/サインアップ**: ユーザー登録とログインが正常に行えるか。
-- **投稿機能**: 音楽ファイルと画像を1つずつ選択して投稿できるか。
+- **投稿機能**: 音楽ファイルと画像を1つずつ選択して投稿できるか（`musicproject/media/` 内のサンプルファイルをご利用いただけます）。
 - **いいね機能**: ハートマークを押した際に、リロードなしでカウントが増減するか。
 - **マイページ**: 自分が投稿した曲だけが表示されているか。
+
+---
+
+## 5. フォルダ構成（参考）
+
+```
+Music_app/              
+├── musicproject/       
+│   ├── manage.py
+│   ├── requirements.txt
+│   ├── .env           
+│   ├── accounts/
+│   ├── musicapp/
+│   ├── musicproject/
+│   └── static/
+├── .gitignore
+├── README.md
+└── startup_guide.md  
+```
+
+
+> [!TIP]
+> **テスト用サンプルファイルについて**
+> `musicproject/media/` フォルダ内に、動作確認用のサンプル音声ファイルと画像ファイルを用意しています。新規投稿のテスト時にぜひご活用ください。
+本プロジェクトのサンプルとして使用している楽曲（例：『花と舞妓』、『POTEFTEF』など）は、**すべて私自身が制作したオリジナル音源**です。
+「自分の作品を最高のデザインと操作感でリスナーに届けたい」という想いが、このアプリを開発した原動力になっています。
+
+---
+&copy; 2024 Music App Portfolio project.
